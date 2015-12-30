@@ -15,7 +15,7 @@
 
 ## Installation
 
-TODO: Simple installation instructions will follow soon. For the time being, see [Development](#Development).
+TODO: Simple installation instructions will follow soon. For the time being, see [Development](#development).
 
 ## Usage
 
