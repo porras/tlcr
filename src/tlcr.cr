@@ -2,10 +2,11 @@ require "./tlcr/*"
 
 module Tlcr
   PLATFORMS = {
-    "Darwin" => "osx",
+    "darwin" => "osx",
+    "linux"  => "linux",
   }
 
   macro platform
-    {{PLATFORMS[`uname`.strip.stringify]}}
+    {{PLATFORMS[`uname`.strip.downcase.stringify]}}
   end
 end

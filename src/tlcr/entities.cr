@@ -26,9 +26,14 @@ module Tlcr
         @platform.includes?("common") || @platform.includes?(Tlcr.platform)
       end
 
-      # TODO: maybe more clever?
       def default_platform
-        @platform.first
+        if @platform.includes?("common")
+          "common"
+        elsif @platform.includes?(Tlcr.platform)
+          Tlcr.platform
+        else
+          @platform.first
+        end
       end
     end
   end
