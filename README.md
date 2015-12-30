@@ -1,4 +1,4 @@
-# TLCR
+# TLCR [![Build Status](https://travis-ci.org/porras/tlcr.svg?branch=master)](https://travis-ci.org/porras/tlcr)
 
 `tlcr` is a simple terminal-based client for [TLDR pages](http://tldr-pages.github.io/), written in
 [Crystal](http://crystal-lang.org/).
