@@ -5,6 +5,8 @@
 
 > *TLDR pages* is a collection of simplified and community-driven man pages.
 
+![TLCR](tlcr.png)
+
 ## Features
 
 * Simple CLI
