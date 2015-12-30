@@ -1,0 +1,6 @@
+version: 1.0
+shards:
+  progress:
+    github: askn/progress
+    commit: 289b1b89dead01830c20abed24e459054c3220b4
+

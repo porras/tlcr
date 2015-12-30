@@ -5,3 +5,7 @@ authors:
   - Sergio Gil <sgilperez@gmail.com>
 
 license: MIT
+
+dependencies:
+  completion:
+    github: f/completion
