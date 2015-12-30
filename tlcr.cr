@@ -1,19 +1,13 @@
 require "./src/tlcr"
-require "completion"
 
-client = Tlcr::Client.new(Tlcr::HTTP.new, Tlcr::Cache.new)
+Tlcr::Completion.setup
 
 if name = ARGV.first?
-  if name =~ /^--comp/
-    completion :command do |comp|
-      comp.reply :command, client.index.available.map(&.name)
-    end
+  client = Tlcr::Client.new(Tlcr::HTTP.new, Tlcr::Cache.new)
+  if page = client.get(name)
+    page.to_s(STDOUT)
   else
-    if page = client.get(name)
-      page.to_s(STDOUT)
-    else
-      puts "No entry for command: #{name}"
-    end
+    puts "No entry for command: #{name}"
   end
 else
   puts "Please specify a command name"
