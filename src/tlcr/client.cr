@@ -7,7 +7,7 @@ module Tlcr
       Index.from_json(index_content)
     end
 
-    def get(name)
+    def get(name : String)
       if command = index.get(name)
         Page.new(page_content(command))
       end
