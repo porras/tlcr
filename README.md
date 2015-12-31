@@ -7,6 +7,9 @@
 
 ![TLCR](tlcr.png)
 
+`tlcr` is on an early stage of development. It mostly works and can be used, but testing and issues reporting is 
+appreciated.
+
 ## Features
 
 * Simple CLI
@@ -14,6 +17,11 @@
 * Local file based cache
 * Bash completion
 * No dependencies
+
+### Planned features
+
+* Batch download
+* Local file rendering (for authors)
 
 ## Installation
 
