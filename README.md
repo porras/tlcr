@@ -17,7 +17,17 @@
 
 ## Installation
 
-TODO: Simple installation instructions will follow soon. For the time being, see [Development](#development).
+### Mac
+
+(tested on Yosemite, reports on other versions welcome)
+
+    $ brew tap porras/tap
+    $ brew update
+    $ brew install tlcr
+
+### Linux
+
+TODO: Create binary packages for easy installation. Help welcome!
 
 ## Usage
 
