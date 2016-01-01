@@ -17,11 +17,11 @@ appreciated.
 * Local file based cache
 * Bash completion
 * No dependencies
+* Local file rendering (for authors)
 
 ### Planned features
 
 * Batch download
-* Local file rendering (for authors)
 
 ## Installation
 
@@ -41,6 +41,7 @@ TODO: Create binary packages for easy installation. Help welcome!
 
     Usage: tlcr [options] [command]
     -u, --update                     Force update (default: cache for 30 days)
+    -r, --render                     Render local file (for authors)
     -h, --help                       Show this help
 
 ### Bash completion
@@ -48,6 +49,11 @@ TODO: Create binary packages for easy installation. Help welcome!
 After having `tlcr` installed, add this to your `.bashrc`:
 
     eval "$(tlcr --completion)"
+
+### For page authors
+
+`tlcr` supports a `-r` option to render a local file, which is useful for [TLDR]() contributors that want to see how a
+page will look before submitting a pull request. Just run `tlcr -r /path/to/local/file.md`.
 
 ## Development
 
