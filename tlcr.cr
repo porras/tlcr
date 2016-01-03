@@ -15,7 +15,7 @@ parser = OptionParser.new do |parser|
   parser.on("-r", "--render", "Render local file (for authors)") { local = true }
   parser.on("-h", "--help", "Show this help") { Tlcr.fail parser }
   parser.unknown_args do |args|
-    Tlcr.fail parser if args.size > 1
+    Tlcr.fail parser if args.size != 1
     command = args.first?
   end
 end
