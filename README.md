@@ -65,11 +65,6 @@ After having `tlcr` installed, add this to your `.bashrc`:
 
     eval "$(tlcr --completion)"
 
-### For page authors
-
-`tlcr` supports a `-r` option to render a local file, which is useful for [TLDR]() contributors that want to see how a
-page will look before submitting a pull request. Just run `tlcr -r /path/to/local/file.md`.
-
 ## Development
 
 You need [Crystal 0.10.0](http://crystal-lang.org/docs/installation/index.html) installed (it might work with older
