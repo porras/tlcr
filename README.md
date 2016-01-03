@@ -44,6 +44,21 @@ TODO: Create binary packages for easy installation. Help welcome!
     -r, --render                     Render local file (for authors)
     -h, --help                       Show this help
 
+### Examples
+
+Displaying a page:
+
+    $ tlcr ls
+
+Displaying a page, forcing its download (and the download of the index):
+
+    $ tlcr --update ls
+
+Displaying a page from a local file (useful if you're contributing to [TLDR pages](https://github.com/tldr-pages/tldr)
+and want to have a look before submitting a patch):
+
+    $ tlcr --render tldr/pages/common/ls.md 
+
 ### Bash completion
 
 After having `tlcr` installed, add this to your `.bashrc`:
