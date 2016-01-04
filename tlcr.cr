@@ -2,8 +2,6 @@ require "./src/tlcr"
 
 Tlcr::Completion.setup
 
-ARGV << "-h" if ARGV.empty?
-
 options = begin
   Tlcr::CLI.parse(ARGV)
 rescue e : Tlcr::CLI::ShowHelp
