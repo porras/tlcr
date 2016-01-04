@@ -57,4 +57,8 @@ describe Tlcr::CLI do
       Tlcr::CLI.parse(%w(-d wadus))
     end
   end
+
+  it "-v shows the version" do
+    Tlcr::CLI.parse(%w(-v)).version?.should eq(true)
+  end
 end

@@ -8,7 +8,10 @@ rescue e : Tlcr::CLI::ShowHelp
   Tlcr.fail(e.message)
 end
 
-if options.download?
+if options.version?
+  puts "#{$0} v#{Tlcr::VERSION}"
+  exit 0
+elsif options.download?
   Tlcr::Download.download(Tlcr::Cache.new)
 else
   source = if options.local?
