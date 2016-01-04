@@ -11,6 +11,17 @@ module Tlcr
       read(*keys)
     end
 
+    def store(*keys, source_path)
+      if !File.exists?(source_path)
+        # Just ignore, because not storing is not fatal (it will result in a cache miss next time, being stored if
+        # available), and TLDR index.json does somethimes include pages that don't exist
+        return false
+      end
+
+      Dir.mkdir_p(File.dirname(filename(*keys)))
+      system "cp #{source_path} #{filename(*keys)}"
+    end
+
     private def hit?(*keys)
       File.exists?(filename(*keys)) && Time.utc_now - File.stat(filename(*keys)).mtime < @ttl
     end

@@ -18,9 +18,6 @@ appreciated.
 * Bash completion
 * No dependencies
 * Local file rendering (for authors)
-
-### Planned features
-
 * Batch download
 
 ## Installation
@@ -40,9 +37,10 @@ TODO: Create binary packages for easy installation. Help welcome!
 ## Usage
 
     Usage: tlcr [options] [command]
-    -u, --update                     Force update (default: cache for 30 days)
-    -r, --render                     Render local file (for authors)
-    -h, --help                       Show this help
+        -u, --update                     Force update (default: cache for 30 days)
+        -r, --render                     Render local file (for authors)
+        -d, --download                   Download the whole TLDR archive
+        -h, --help                       Show this help
 
 ### Examples
 
@@ -58,6 +56,12 @@ Displaying a page from a local file (useful if you're contributing to [TLDR page
 and want to have a look before submitting a patch):
 
     $ tlcr --render tldr/pages/common/ls.md 
+
+Downloading the whole archive (it will download everything at once and store it in the normal cache, where it will
+expire, in the normal way, after 30 days, when it can be downloaded either completely again, or on demand page by page,
+as normal):
+
+    $ tlcr --download
 
 ### Bash completion
 

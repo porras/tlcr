@@ -9,11 +9,12 @@ module Tlcr
     end
 
     property! :ttl, :command
-    property? :local
+    property? :local, :download
 
     def initialize
       @ttl = 30.days
       @local = false
+      @download = false
     end
 
     def self.parse(argv)
@@ -22,10 +23,15 @@ module Tlcr
           parser.banner = "Usage: #{$0} [options] [command]"
           parser.on("-u", "--update", "Force update (default: cache for #{options.ttl.total_days} days)") { options.ttl = 0.seconds }
           parser.on("-r", "--render", "Render local file (for authors)") { options.local = true }
+          parser.on("-d", "--download", "Download the whole TLDR archive") { options.download = true }
           parser.on("-h", "--help", "Show this help") { raise ShowHelp.display(parser) }
           parser.unknown_args do |args|
-            raise ShowHelp.display(parser) if args.size != 1
-            options.command = args.first?
+            if options.download?
+              raise ShowHelp.display(parser) unless args.empty?
+            else
+              raise ShowHelp.display(parser) if args.size != 1
+              options.command = args.first?
+            end
           end
         end
 
