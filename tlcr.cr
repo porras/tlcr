@@ -12,7 +12,7 @@ if options.download?
   Tlcr::Download.download(Tlcr::Cache.new)
 else
   source = if options.local?
-             Tlcr::Local.new(options.command)
+             Tlcr::Local.new
            else
              Tlcr::Client.new(Tlcr::HTTP.new, Tlcr::Cache.new(ttl: options.ttl))
            end
