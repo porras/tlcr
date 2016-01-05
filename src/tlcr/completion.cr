@@ -32,7 +32,7 @@ module Tlcr
         cache = Tlcr::ReadOnlyCache.new # never store dummy results
         client = Tlcr::Client.new(http, cache)
         completion :command do |comp|
-          comp.reply :command, ["-h", "--help", "-u", "--update", "-r", "--render", "-d", "--download"] +
+          comp.reply :command, ["-h", "--help", "-u", "--update", "-r", "--render", "-d", "--download", "-v", "--version"] +
             client.index.available.map(&.name)
         end
         exit 0
