@@ -2,9 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/porras/tlcr/compare/0.2.0...HEAD)
+## [Unreleased](https://github.com/porras/tlcr/compare/0.2.1...HEAD)
+
+## [0.2.1](https://github.com/porras/tlcr/compare/0.2.0...0.2.1)
 ### Fixed
 - Missing bash completion for `-v`/`--version`
+- Due to human-mistake-with-git, version string was 0.1.1 for 0.2.0 (in source, not in binary) 😔
 
 ## [0.2.0](https://github.com/porras/tlcr/compare/0.1.1...0.2.0)
 ### Added
