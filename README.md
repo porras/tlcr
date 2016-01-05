@@ -27,12 +27,21 @@ appreciated.
 (tested on Yosemite, reports on other versions welcome)
 
     $ brew tap porras/tap
-    $ brew update
     $ brew install tlcr
+
+Or, if you want to install the latest, unreleased version:
+
+    $ brew tap porras/tap
+    $ brew install tlcr --HEAD
 
 ### Linux
 
 TODO: Create binary packages for easy installation. Help welcome!
+
+### From source
+
+If there are no binary packages for your OS version, you can install `tlcr` building it from source. See
+[Development](#development) for instructions.
 
 ## Usage
 
