@@ -6,12 +6,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Local file rendering ([#3](https://github.com/porras/tlcr/pull/3))
 - Batch download of the whole archive ([#7](https://github.com/porras/tlcr/pull/7))
-- `v`/`--version` option to display version
+- `-v`/`--version` option to display version
 - Some (incomplete but it's a start) tests 😊
 - This CHANGELOG
 
 ### Fixed
-- Error message when passing `-d` but no page name ([#5](https://github.com/porras/tlcr/pull/5), thanks @sfcgeorge for reporting)
+- Error message when passing `-u` but no page name ([#5](https://github.com/porras/tlcr/pull/5), thanks @sfcgeorge for reporting)
 
 ## [0.1.1](https://github.com/porras/tlcr/compare/0.1.0...0.1.1) - 2015-12-30
 ### Fixed
