@@ -1,6 +1,9 @@
+require "uri"
+
 module Tlcr
   class Download
-    ARCHIVE_URL = "https://github.com/tldr-pages/tldr/archive/master.tar.gz"
+    ARCHIVE_URI = URI.parse("https://github.com/tldr-pages/tldr/archive/master.tar.gz")
+    INDEX_URI   = URI.parse("https://tldr-pages.github.io/assets/index.json")
 
     def self.download(cache)
       new(cache).download
@@ -10,14 +13,17 @@ module Tlcr
     end
 
     def download
-      print "Downloading #{ARCHIVE_URL}..."
       in_temp_dir do |dir|
-        system "curl -sL #{ARCHIVE_URL} | tar xz"
-        index = Index.from_json(File.read(File.join(dir, "tldr-master", "pages", "index.json")))
+        puts "Downloading #{INDEX_URI}..."
+        system "curl -sL #{INDEX_URI} > index"
+        puts "Downloading #{ARCHIVE_URI}..."
+        system "curl -sL #{ARCHIVE_URI} | tar xz"
+        index = Index.from_json(File.read(File.join(dir, "index")))
+        @cache.store "index", File.join(dir, "index")
         index.available.each do |page|
           @cache.store page.default_platform, page.name, File.join(dir, "tldr-master", "pages", page.default_platform, "#{page.name}.md")
         end
-        puts " #{index.available.size} pages stored"
+        puts "#{index.available.size} pages stored"
       end
     end
 
