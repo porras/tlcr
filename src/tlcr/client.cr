@@ -15,12 +15,14 @@ module Tlcr
 
     private def index_content
       @cache.get("index") do
+        puts "Fetching index..."
         @http.index_content
       end
     end
 
     private def page_content(command)
       @cache.get(command.default_platform, command.name) do
+        puts "Fetching #{command.name}..."
         @http.page_content(command)
       end
     end

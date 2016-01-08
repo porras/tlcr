@@ -5,7 +5,6 @@ module Tlcr
 
     def get(*keys)
       unless hit?(*keys)
-        puts "Fetching #{keys.join("::")}..."
         set(*keys, yield)
       end
       read(*keys)
