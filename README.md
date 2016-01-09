@@ -7,8 +7,7 @@
 
 ![TLCR](tlcr.png)
 
-`tlcr` is on an early stage of development. It mostly works and can be used, but testing and issues reporting is 
-appreciated.
+`tlcr` is under development. It works and can be used, but testing and reporting issues is appreciated.
 
 ## Features
 
@@ -80,7 +79,7 @@ After having `tlcr` installed, add this to your `.bashrc`:
 
 ## Development
 
-You need [Crystal 0.10.0](http://crystal-lang.org/docs/installation/index.html) installed (it might work with older
+You need [Crystal 0.10.x](http://crystal-lang.org/docs/installation/index.html) installed (it might work with older
 or newer versions, but that's the one that's tested).
 
 After checking out the repo (or decompressing the tarball with the source code), run `shards` to get the development
