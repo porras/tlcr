@@ -2,5 +2,5 @@
 /libs/
 /.crystal/
 /.shards/
-
-
+tlcr-*.tar.gz
+tlcr

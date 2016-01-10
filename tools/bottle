@@ -1,0 +1,166 @@
+#!/usr/bin/env duct # ruby
+
+require 'octokit'
+require 'tty-prompt'
+require 'yaml'
+
+Bottle = Struct.new(:file, :version, :osversion, :sha256, :branch) do
+  GHCredentials = Struct.new(:login, :access_token) do
+    class << self
+      def get
+        @_credentials ||= from_hash(load_config)
+      end
+
+      def from_hash(hash)
+        new(hash.fetch('login'), hash.fetch('access_token'))
+      end
+
+      private
+
+      def load_config
+        if File.exists?(config_filename)
+          puts "Reading token from #{config_filename}"
+          YAML.load_file(config_filename)
+        else
+          store_config
+        end
+      end
+
+      def store_config
+        login = prompt.ask('GitHub login:')
+        password = prompt.ask("GitHub password (it won't be stored):", echo: false)
+        client = Octokit::Client.new(login: login, password: password)
+        headers = {}
+        auth = begin
+          client.create_authorization(scopes: ['repo'], note: "Created for Bottle on #{Time.now}", headers: headers)
+        rescue Octokit::OneTimePasswordRequired
+          headers = {'X-GitHub-OTP' => prompt.ask('2FA code you just received:')}
+          retry
+        end
+        {'login' => login, 'access_token' => auth.token}.tap do |config|
+          puts "Storing token in #{config_filename}"
+          File.open(config_filename, 'w') do |f|
+            f.write YAML.dump(config)
+          end
+        end
+      end
+
+      def config_filename
+        File.join(ENV['HOME'], '.bottlerc')
+      end
+
+      def prompt
+        @_prompt ||= TTY::Prompt.new
+      end
+    end
+  end
+
+  class << self
+    def run
+      credentials = GHCredentials.get
+
+      Octokit.configure do |c|
+        c.login = credentials.login
+        c.access_token = credentials.access_token
+      end
+
+      Dir.mktmpdir do |dir|
+        Dir.chdir(dir) do
+          sh 'git clone https://github.com/porras/homebrew-tap.git'
+          Dir.chdir('homebrew-tap') do
+            sh "git checkout -b #{bottle.branch} master~"
+            recipe = File.read('tlcr.rb')
+            recipe.gsub!(%r{(root_url.+/download/)[\d\.]+}, "\\1#{bottle.version}")
+            recipe.gsub!(%r{sha256.+#{bottle.osversion}}, "sha256 \"#{bottle.sha256}\" => :#{bottle.osversion}")
+            File.open('tlcr.rb', 'w') { |f| f.write(recipe)}
+            sh "git commit -am '[tlcr] v#{bottle.version}'"
+            sh "git push origin #{bottle.branch}"
+          end
+        end
+      end
+
+      release = Octokit.release_for_tag('porras/tlcr', bottle.version)
+      upload = Octokit.upload_asset(release.url, bottle.file, name: "tlcr-#{bottle.version}.#{bottle.osversion}.bottle.tar.gz.bak#{Time.now.to_i}")
+      pull_request = Octokit.create_pull_request('porras/homebrew-tap', 'master', bottle.branch, "tlcr v#{bottle.version} (#{bottle.osversion})")
+      puts "File uploaded to #{upload.browser_download_url}"
+      puts "PR created at #{pull_request.html_url}"
+    end
+
+    private
+
+    def bottle
+      @_bottle ||= begin
+        sh 'brew tap porras/tap'
+        sh 'brew update'
+        sh 'brew reinstall --build-bottle tlcr'
+        output = sh 'brew bottle tlcr'
+        # output = "==> Determining porras/tap/tlcr bottle revision...\n==> Bottling tlcr-0.3.0.yosemite.bottle.1.tar.gz...\n==> Downloading https://github.com/porras/tlcr/archive/0.3.0.tar.gz\nAlready downloaded: /Library/Caches/Homebrew/tlcr-0.3.0.tar.gz\n./tlcr-0.3.0.yosemite.bottle.1.tar.gz\n  bottle do\n    cellar :any\n    revision 1\n    sha256 \"6f434710fa787ab90da18d27ac811d0307552c4753e5a6c679689ba8c7a38b1e\" => :yosemite\n  end\n"
+
+        bottle_file = output[/tlcr-([\d\.]+)\.(\w+)\.bottle(\.\d+)?\.tar.gz/]
+        version, osversion = $1, $2
+        sha256 = `sha256sum #{bottle_file}`.split.first
+        branch = "tlcr-#{version}-#{osversion}-#{Time.now.to_i}"
+        new(bottle_file, version, osversion, sha256, branch)
+      end
+    end
+
+    def sh(command)
+      puts "$ #{command}"
+      `BUNDLE_GEMFILE="" #{command}`.tap do
+        raise "Command failed: #{command}" unless $? == 0
+      end
+    end
+  end
+end
+
+Bottle.run
+
+__END__
+@@ Gemfile
+
+source 'https://rubygems.org'
+
+gem 'octokit'
+gem 'tty-prompt'
+gem 'mime-types'
+
+@@ Gemfile.lock
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.3.8)
+    equatable (0.5.0)
+    faraday (0.9.2)
+      multipart-post (>= 1.2, < 3)
+    mime-types (2.99)
+    multipart-post (2.0.0)
+    necromancer (0.3.0)
+    octokit (4.2.0)
+      sawyer (~> 0.6.0, >= 0.5.3)
+    pastel (0.5.3)
+      equatable (~> 0.5.0)
+      tty-screen (~> 0.4.3)
+    sawyer (0.6.0)
+      addressable (~> 2.3.5)
+      faraday (~> 0.8, < 0.10)
+    tty-cursor (0.2.0)
+    tty-platform (0.1.0)
+    tty-prompt (0.3.0)
+      necromancer (~> 0.3.0)
+      pastel (~> 0.5.2)
+      tty-cursor (~> 0.2.0)
+      tty-platform (~> 0.1.0)
+      wisper (~> 1.6.1)
+    tty-screen (0.4.3)
+    wisper (1.6.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  mime-types
+  octokit
+  tty-prompt
+
+BUNDLED WITH
+   1.10.6
