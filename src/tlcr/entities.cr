@@ -10,7 +10,7 @@ module Tlcr
       @commands.select(&.available?)
     end
 
-    def get(name)
+    def get(name : String)
       available.find do |command|
         command.name == name
       end

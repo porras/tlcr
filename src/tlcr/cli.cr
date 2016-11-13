@@ -11,6 +11,9 @@ module Tlcr
     property! :ttl, :command
     property? :local, :download, :version
 
+    @ttl : Time::Span
+    @command : String?
+
     def initialize
       @ttl = 30.days
       @local = false

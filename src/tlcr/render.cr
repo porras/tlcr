@@ -3,7 +3,7 @@ require "colorize"
 
 module Tlcr
   class Page
-    def initialize(@content)
+    def initialize(@content : String)
     end
 
     def to_s(io)
@@ -18,7 +18,9 @@ module Tlcr
   # It's very coupled to the conventions in https://github.com/tldr-pages/tldr/blob/master/CONTRIBUTING.md
   # It renders stuff according to the specific meanings mentioned there and ignores everything else
   class Renderer
-    def initialize(@io)
+    include Markdown::Renderer
+
+    def initialize(@io : IO)
       @modes = Set(Symbol).new
       @colors = Set(Symbol).new
       @upcase = false
@@ -104,6 +106,12 @@ module Tlcr
     end
 
     def end_link
+    end
+
+    def begin_quote
+    end
+
+    def end_quote
     end
 
     def image(url, alt)
