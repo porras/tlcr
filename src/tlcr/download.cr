@@ -9,7 +9,7 @@ module Tlcr
       new(cache).download
     end
 
-    def initialize(@cache)
+    def initialize(@cache : Tlcr::Cache)
     end
 
     def download
@@ -19,9 +19,9 @@ module Tlcr
         puts "Downloading #{ARCHIVE_URI}..."
         system "curl -sL #{ARCHIVE_URI} | tar xz"
         index = Index.from_json(File.read(File.join(dir, "index")))
-        @cache.store "index", File.join(dir, "index")
+        @cache.store ["index"], File.join(dir, "index")
         index.available.each do |page|
-          @cache.store page.default_platform, page.name, File.join(dir, "tldr-master", "pages", page.default_platform, "#{page.name}.md")
+          @cache.store [page.default_platform, page.name], File.join(dir, "tldr-master", "pages", page.default_platform, "#{page.name}.md")
         end
         puts "#{index.available.size} pages stored"
       end

@@ -12,30 +12,30 @@ module Tlcr
   end
 
   class ReadOnlyCache < Cache
-    def get(*keys)
-      if hit?(*keys)
-        read(*keys)
+    def get(keys)
+      if hit?(keys)
+        read(keys)
       else
         yield
       end
     end
 
-    private def set(*keys)
+    private def set(keys)
       raise "This should never be called"
     end
   end
 
   module Completion
     macro setup
-      if ARGV.first? && ARGV.first =~ /^--comp/
-        http = Tlcr::DummyHTTP.new      # never request anything just for completion
-        cache = Tlcr::ReadOnlyCache.new # never store dummy results
-        client = Tlcr::Client.new(http, cache)
-        completion :command do |comp|
-          comp.reply :command, ["-h", "--help", "-u", "--update", "-r", "--render", "-d", "--download", "-v", "--version"] +
-            client.index.available.map(&.name)
+      completion :command do |comp|
+        comp.on :command do
+          http = Tlcr::DummyHTTP.new      # never request anything just for completion
+          cache = Tlcr::ReadOnlyCache.new # never store dummy results
+          client = Tlcr::Client.new(http, cache)
+
+          comp.reply ["-h", "--help", "-u", "--update", "-r", "--render", "-d", "--download", "-v", "--version"]
+          comp.reply client.index.available.map(&.name)
         end
-        exit 0
       end
     end
   end
