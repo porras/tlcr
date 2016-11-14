@@ -63,7 +63,7 @@ Displaying a page, forcing its download (and the download of the index):
 Displaying a page from a local file (useful if you're contributing to [TLDR pages](https://github.com/tldr-pages/tldr)
 and want to have a look before submitting a patch):
 
-    $ tlcr --render tldr/pages/common/ls.md 
+    $ tlcr --render tldr/pages/common/ls.md
 
 Downloading the whole archive (it will download everything at once and store it in the normal cache, where it will
 expire, in the normal way, after 30 days, when it can be downloaded either completely again, or on demand page by page,
@@ -79,7 +79,7 @@ After having `tlcr` installed, add this to your `.bashrc`:
 
 ## Development
 
-You need [Crystal 0.10.x](http://crystal-lang.org/docs/installation/index.html) installed (it might work with older
+You need [Crystal 0.19.x](http://crystal-lang.org/docs/installation/index.html) installed (it might work with older
 or newer versions, but that's the one that's tested).
 
 After checking out the repo (or decompressing the tarball with the source code), run `shards` to get the development

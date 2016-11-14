@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/porras/tlcr/compare/0.3.0...HEAD)
+### Changed
+- Different refactors and changes for Crystal 0.19 compatibility ([#9](https://github.com/porras/tlcr/pull/9), [c8f74992](https://github.com/porras/tlcr/commit/c8f74992))
 
 ## [0.3.0](https://github.com/porras/tlcr/compare/0.2.1...0.3.0) - 2016-01-08
 ### Changed
