@@ -3,3 +3,4 @@
 /.crystal/
 /.shards/
 tlcr
+*.tar.gz
