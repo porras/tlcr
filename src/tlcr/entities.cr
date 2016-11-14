@@ -15,25 +15,25 @@ module Tlcr
         command.name == name
       end
     end
+  end
 
-    class Command
-      JSON.mapping({
-        name:     String,
-        platform: Set(String),
-      })
+  class Command
+    JSON.mapping({
+      name:     String,
+      platform: Set(String),
+    })
 
-      def available?
-        @platform.includes?("common") || @platform.includes?(Tlcr.platform)
-      end
+    def available?
+      @platform.includes?("common") || @platform.includes?(Tlcr.platform)
+    end
 
-      def default_platform
-        if @platform.includes?("common")
-          "common"
-        elsif @platform.includes?(Tlcr.platform)
-          Tlcr.platform
-        else
-          @platform.first
-        end
+    def default_platform
+      if @platform.includes?("common")
+        "common"
+      elsif @platform.includes?(Tlcr.platform)
+        Tlcr.platform
+      else
+        @platform.first
       end
     end
   end

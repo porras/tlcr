@@ -13,6 +13,9 @@ module Tlcr
 
     @ttl : Time::Span
     @command : String?
+    @local : Bool
+    @download : Bool
+    @version : Bool
 
     def initialize
       @ttl = 30.days

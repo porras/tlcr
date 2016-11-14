@@ -3,7 +3,9 @@ require "colorize"
 
 module Tlcr
   class Page
-    def initialize(@content : String)
+    @content : String
+
+    def initialize(@content)
     end
 
     def to_s(io)
@@ -19,6 +21,11 @@ module Tlcr
   # It renders stuff according to the specific meanings mentioned there and ignores everything else
   class Renderer
     include Markdown::Renderer
+
+    @io : IO
+    @modes : Set(Symbol)
+    @colors : Set(Symbol)
+    @upcase : Bool
 
     def initialize(@io : IO)
       @modes = Set(Symbol).new

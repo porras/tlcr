@@ -1,6 +1,9 @@
 module Tlcr
   class Cache
-    def initialize(@directory = File.join(ENV["HOME"], ".tlcr"), @ttl : Time::Span = 30.days)
+    @directory : String
+    @ttl : Time::Span
+
+    def initialize(@directory = File.join(ENV["HOME"], ".tlcr"), @ttl = 30.days)
     end
 
     def get(keys)

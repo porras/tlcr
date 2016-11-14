@@ -9,7 +9,9 @@ module Tlcr
       new(cache).download
     end
 
-    def initialize(@cache : Tlcr::Cache)
+    @cache : Tlcr::Cache
+
+    def initialize(@cache)
     end
 
     def download

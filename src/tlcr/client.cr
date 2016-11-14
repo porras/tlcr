@@ -23,7 +23,7 @@ module Tlcr
       end
     end
 
-    private def page_content(command)
+    private def page_content(command : Tlcr::Command)
       @cache.get([command.default_platform, command.name]) do
         puts "Fetching #{command.name}..."
         @http.page_content(command)
