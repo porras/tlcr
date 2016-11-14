@@ -23,8 +23,6 @@
 
 ### Mac
 
-(tested on Yosemite, reports on other versions welcome)
-
     $ brew tap porras/tap
     $ brew install tlcr
 
