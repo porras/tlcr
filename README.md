@@ -75,6 +75,8 @@ After having `tlcr` installed, add this to your `.bashrc`:
 
     eval "$(tlcr --completion)"
 
+You don't need this if you installed via Homebrew (it's automatic).
+
 ## Development
 
 You need [Crystal 0.19.x](http://crystal-lang.org/docs/installation/index.html) installed (it might work with older
