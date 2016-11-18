@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -e
+
+rm -rf build
+
+docker build -t tlcr.ubuntu -f Dockerfile.ubuntu .
+docker build -t tlcr.fpm -f Dockerfile.fpm .
+
+mkdir -p build/ubuntu
+docker run -v $PWD/build:/build -w /src -e "PREFIX=/build/ubuntu/usr" tlcr.ubuntu make install
+docker run -v $PWD/build:/build -w /build tlcr.fpm \
+  fpm \
+    --input-type dir \
+    --output-type deb \
+    --name tlcr \
+    --version 0.3.1 \
+    --chdir /build/ubuntu \
+    --depends libssl1.0.0 \
+    --package tlcr_VERSION_ARCH.deb \
+    --license MIT \
+    --category web \
+    --maintainer "Sergio Gil <sgilperez@gmail.com>" \
+    --url https://github.com/porras/tlcr \
+    --description "Simple terminal-based client for TLDR pages, written in Crystal. TLDR pages is a collection of simplified and community-driven man pages." \
+    usr/bin
