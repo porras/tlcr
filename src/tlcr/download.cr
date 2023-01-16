@@ -2,7 +2,7 @@ require "uri"
 
 module Tlcr
   class Download
-    ARCHIVE_URI = URI.parse("https://github.com/tldr-pages/tldr/archive/master.tar.gz")
+    ARCHIVE_URI = URI.parse("https://github.com/tldr-pages/tldr/archive/main.tar.gz")
     INDEX_URI   = URI.parse("https://tldr-pages.github.io/assets/index.json")
 
     def self.download(cache)
