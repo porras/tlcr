@@ -17,7 +17,7 @@ module Tlcr
   end
 
   # NOTE: This is not a general purpose Markdown text renderer.
-  # It's very coupled to the conventions in https://github.com/tldr-pages/tldr/blob/master/CONTRIBUTING.md
+  # It's very coupled to the conventions in https://github.com/tldr-pages/tldr/blob/main/CONTRIBUTING.md
   # It renders stuff according to the specific meanings mentioned there and ignores everything else
   class Renderer
     include Markdown::Renderer

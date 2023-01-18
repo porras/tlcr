@@ -14,7 +14,7 @@ module Tlcr
     end
 
     def page_content(command : Tlcr::Command)
-      ::HTTP::Client.get(@base_uri.to_s + "/master/pages/#{command.default_platform}/#{command.name}.md").body
+      ::HTTP::Client.get(@base_uri.to_s + "/main/pages/#{command.default_platform}/#{command.name}.md").body
     end
   end
 end
