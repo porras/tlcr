@@ -1,3 +1,7 @@
+# Important Note
+
+This project is abandoned, so I'm archiving the repo (leaving the code here as read-only). If you happen tu use it (big if), please consider moving to the official client, or another alternative.
+
 # TLCR [![Build Status](https://travis-ci.org/porras/tlcr.svg?branch=master)](https://travis-ci.org/porras/tlcr)
 
 `tlcr` is a simple terminal-based client for [TLDR pages](http://tldr-pages.github.io/), written in
